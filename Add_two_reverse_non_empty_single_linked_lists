@@ -1,0 +1,67 @@
+#ADD TWO REVERSED NON EMPTY SINGLE LINKED LISTS
+
+# You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+
+# You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+# Example 3:
+
+# Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+# Output: [8,9,9,9,0,0,0,1] 
+##################################################################################################
+#SOLUTION STARTS HERE
+#Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        #CONVERTING LINKED LIST TO NORMAL LIST
+        list1=self.get_list_from_listnode(l1)
+        list2=self.get_list_from_listnode(l2)
+        #print(list1)
+        #print(list2)
+        #REVERSING LIST TO GET ACTUAL NUMBER
+        list1.reverse()
+        list2.reverse()
+        #reverse_l1=reversed(list1)
+        #reverse_l2=reversed(list2)
+        #for x in reverse_l1:
+            #empty_list.append(x)
+        #reverse modifies the list in place and cannot be assigned to variable, reversed can do that
+        #reverse has no parameters , called as list.reverse() whereas reversed has parameter
+        #CONVERTING LIST TO NUMBER
+        num1 = sum(d * 10**i for i, d in enumerate(list1[::-1]))
+        num2 = sum(d * 10**i for i, d in enumerate(list2[::-1]))
+        #print(num1,num2)
+        sum_tot=num1+num2
+        #print(sum_tot)
+        #CONVERTING SUM TOTAL NUMBER TO LIST
+        res = [int(x) for x in str(sum_tot)]
+        res.reverse()
+        res_linked_nd=self.get_linked_from_list(res)
+        #print(res_linked_nd)
+        return res_linked_nd
+    
+
+    def get_list_from_listnode(self,list_nd):
+        l = []
+        n = list_nd
+        while n is not None:
+            l.append(n.val)
+            n = n.next  
+        return l
+
+    def get_linked_from_list(self,lst):
+        cur = dummy = ListNode(0)
+        for e in lst:
+            cur.next = ListNode(e)
+            cur = cur.next
+        #print(dummy)    
+        return dummy.next
