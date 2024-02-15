@@ -1,0 +1,18 @@
+#Method to reverse linked list - linked list is where data is stored in nodes and they are linked to each other. Unlike arrays, data cannot be accessed from some middle node and must be traversed from head to end. Useful for related data lists.
+
+def reverseList(self,unreversed_list):
+        # initialize variables
+        previous = None         # `previous` initially points to None
+        current = list.head     # `current` points at the first element
+        following = current.next    # `following` points at the second element
+
+        # go till the last element of the list
+        while current:
+            current.next = previous # reverse the link
+            previous = current      # move `previous` one step ahead
+            current = following         # move `current` one step ahead
+            if following:               # if this was not the last element
+                following = following.next    # move `following` one step ahead
+
+        list.head = previous
+return list
